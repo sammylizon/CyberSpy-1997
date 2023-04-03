@@ -47,6 +47,7 @@ public class Player : MonoBehaviour
 
         //invert because Unity registers looking down as postive and looking up as negative whereas up is positive.
         cameraVerticalRotation -= mouseY;
+        cameraVerticalRotation = Mathf.Clamp(cameraVerticalRotation, -90f, 90f);
 
         //Rotate the camera left and rigth 
         transform.Rotate(Vector3.up * mouseX);
