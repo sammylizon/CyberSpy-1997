@@ -52,6 +52,8 @@ public class Player : MonoBehaviour
                 {
                     //accuracy
                     firingPosition.LookAt(hit.point);
+
+                    Instantiate(bulletHole, hit.point, Quaternion.LookRotation(-hit.normal));
                 }
 
                 
@@ -64,7 +66,7 @@ public class Player : MonoBehaviour
             //Create a new bullet everytime after shooting the last using instantiate
             Instantiate(bullet, firingPosition.position, firingPosition.rotation);
             Instantiate(muzzleFlash, firingPosition.position, firingPosition.rotation, firingPosition);
-            //Instantiate(bulletHole, hit.point, firingPosition.rotation);
+            
         }
     }
 
