@@ -9,11 +9,14 @@ public class Player : MonoBehaviour
     public CharacterController myController;
     public Transform myCameraHead;
 
-    private float mouseSensitivity = 850f;
+    private float mouseSensitivity = 200f;
     private float cameraVerticalRotation;
 
     public GameObject bullet;
-    public Transform firingPosition; 
+    public Transform firingPosition;
+
+    public GameObject bulletHole;
+    public GameObject muzzleFlash;
 
     // Start is called before the first frame update
     void Start()
@@ -29,6 +32,8 @@ public class Player : MonoBehaviour
         Shoot();
 
 
+
+
     }
 
     private void Shoot()
@@ -37,8 +42,29 @@ public class Player : MonoBehaviour
 
         if (trigger)
         {
+            //Create RayCast
+            RaycastHit hit;
+
+            if(Physics.Raycast(myCameraHead.position, myCameraHead.forward, out hit, 200f))
+            {
+                //Check the distance between myCameraHead and the ray hit
+                if(Vector3.Distance(myCameraHead.position, hit.point) > 2f)
+                {
+                    //accuracy
+                    firingPosition.LookAt(hit.point);
+                }
+
+                
+            } else
+            {
+                firingPosition.LookAt(myCameraHead.position + (myCameraHead.forward * 50f));
+            }
+
+
             //Create a new bullet everytime after shooting the last using instantiate
             Instantiate(bullet, firingPosition.position, firingPosition.rotation);
+            Instantiate(muzzleFlash, firingPosition.position, firingPosition.rotation, firingPosition);
+            //Instantiate(bulletHole, hit.point, firingPosition.rotation);
         }
     }
 
