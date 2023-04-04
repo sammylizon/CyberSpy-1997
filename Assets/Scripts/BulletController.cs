@@ -5,7 +5,7 @@ using UnityEngine;
 public class BulletController : MonoBehaviour
 {
 
-    public float speed = 15f;
+    public float speed = 150f;
     public Rigidbody myRigidBody;
 
     // Start is called before the first frame update
@@ -17,17 +17,12 @@ public class BulletController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Shoot();
+        BulletVelocity();
     }
 
-    private void Shoot()
+    private void BulletVelocity()
     {
-        bool trigger = Input.GetButton("Fire1");
-
-        if (trigger)
-        {
-            myRigidBody.AddForce(Vector3.forward * speed);
-            Debug.Log(trigger);
-        }
+        myRigidBody.velocity = transform.forward * speed;
+        
     }
 }
