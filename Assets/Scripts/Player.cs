@@ -18,6 +18,10 @@ public class Player : MonoBehaviour
     public GameObject bulletHole;
     public GameObject muzzleFlash;
 
+    private float bulletHoleLife;
+
+    public GameObject newbulletHole;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -30,6 +34,8 @@ public class Player : MonoBehaviour
         Movement();
         CameraMovement();
         Shoot();
+        DestroyBulletEffect();
+
 
 
 
@@ -53,7 +59,7 @@ public class Player : MonoBehaviour
                     //accuracy
                     firingPosition.LookAt(hit.point);
 
-                    Instantiate(bulletHole, hit.point, Quaternion.LookRotation(-hit.normal));
+                    GameObject newBullet = Instantiate(bulletHole, hit.point, Quaternion.LookRotation(hit.normal));
                 }
 
                 
@@ -98,5 +104,21 @@ public class Player : MonoBehaviour
 
         //Rotate the camera up and down independent of the body 
         myCameraHead.localRotation = Quaternion.Euler(cameraVerticalRotation, 0f, 0f);
+    }
+
+    void DestroyBulletEffect()
+    {
+        //Reference the clone of the 'HitEffect' prefab and destroy it after 10s then reset time
+        newbulletHole = GameObject.Find("/HitEffect(Clone)");
+
+        //Destroy bullet hole after a while
+        bulletHoleLife -= Time.deltaTime;
+
+        if (bulletHoleLife < -10)
+        {
+
+            Destroy(newbulletHole);
+            bulletHoleLife = 0;
+        }
     }
 }

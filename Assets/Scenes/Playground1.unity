@@ -1626,8 +1626,9 @@ MonoBehaviour:
   myCameraHead: {fileID: 783927665}
   bullet: {fileID: 593458477450355664, guid: e9ac6b83695194234848a9ba768c6360, type: 3}
   firingPosition: {fileID: 340215190}
-  bulletHole: {fileID: 6308787798984664745, guid: 8d0e56bc3b7ee4e24805c1df9dc99aeb, type: 3}
+  bulletHole: {fileID: 3511488396759868629, guid: de14cda38377e4564a6112fb20be6a17, type: 3}
   muzzleFlash: {fileID: 1743301284569550, guid: 60834fa8f9c7e45d0b527a60af6b80ed, type: 3}
+  newbulletHole: {fileID: 0}
 --- !u!143 &1731492382
 CharacterController:
   m_ObjectHideFlags: 0
@@ -1661,7 +1662,7 @@ Transform:
   - {fileID: 783927665}
   - {fileID: 794442719}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 3.202, z: 0}
 --- !u!1 &1817439219
 GameObject:
@@ -2266,7 +2267,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7230553999951371701, guid: e9ac6b83695194234848a9ba768c6360, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7230553999951371701, guid: e9ac6b83695194234848a9ba768c6360, type: 3}
       propertyPath: m_LocalPosition.x
