@@ -15,12 +15,9 @@ public class Player : MonoBehaviour
     public GameObject bullet;
     public Transform firingPosition;
 
-    public GameObject bulletHole;
-    public GameObject muzzleFlash;
+    public GameObject bulletHole, muzzleFlash, waterLeak;
 
-    private float bulletHoleLife;
-
-    public GameObject newbulletHole;
+    private GameObject newbulletHole;  
 
     // Start is called before the first frame update
     void Start()
@@ -34,12 +31,7 @@ public class Player : MonoBehaviour
         Movement();
         CameraMovement();
         Shoot();
-        DestroyBulletEffect();
-
-
-
-
-
+        
     }
 
     private void Shoot()
@@ -59,7 +51,18 @@ public class Player : MonoBehaviour
                     //accuracy
                     firingPosition.LookAt(hit.point);
 
-                    GameObject newBullet = Instantiate(bulletHole, hit.point, Quaternion.LookRotation(hit.normal));
+                    if (hit.collider.tag == "Shootable")
+                    {
+                        Debug.Log(hit.collider.tag);
+                        GameObject newBullet = Instantiate(bulletHole, hit.point, Quaternion.LookRotation(hit.normal));
+                    }
+
+                    if (hit.collider.tag == "Ground")
+                    {
+                        Debug.Log(hit.collider.tag);
+                        GameObject newWaterLeak = Instantiate(waterLeak, hit.point, Quaternion.LookRotation(hit.normal));
+                    }
+
                 }
 
                 
@@ -106,19 +109,5 @@ public class Player : MonoBehaviour
         myCameraHead.localRotation = Quaternion.Euler(cameraVerticalRotation, 0f, 0f);
     }
 
-    void DestroyBulletEffect()
-    {
-        //Reference the clone of the 'HitEffect' prefab and destroy it after 10s then reset time
-        newbulletHole = GameObject.Find("/HitEffect(Clone)");
-
-        //Destroy bullet hole after a while
-        bulletHoleLife -= Time.deltaTime;
-
-        if (bulletHoleLife < -10)
-        {
-
-            Destroy(newbulletHole);
-            bulletHoleLife = 0;
-        }
-    }
+    
 }
