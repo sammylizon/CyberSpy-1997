@@ -5,7 +5,7 @@ using UnityEngine;
 public class BulletController : MonoBehaviour
 {
 
-    public float speed = 150f;
+    public float speed = 500f;
     public Rigidbody myRigidBody;
     public float bulletLife; 
     
@@ -35,6 +35,7 @@ public class BulletController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+      
         Destroy(gameObject);
     }
 }

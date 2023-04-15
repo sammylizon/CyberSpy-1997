@@ -65,6 +65,12 @@ public class Player : MonoBehaviour
 
                 }
 
+                //Destroy enemies with Raycast instead of in game physics cos bullets way too fast (need to learn a work around, would like to use physics) 
+                if(hit.collider.tag == "Enemy")
+                {
+                    Destroy(hit.collider.gameObject);
+                }
+
                 
             } else
             {
