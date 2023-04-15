@@ -5,24 +5,37 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+
+    //speed section
     public float speed = 23.75f;
 
-    //Adding Gravity
+
+    //Adding Gravity section
     public float gravityModifier;
     public Vector3 velocity;
     
+    //Controller & camera head 
     public CharacterController myController;
     public Transform myCameraHead;
 
     private float mouseSensitivity = 200f;
     private float cameraVerticalRotation;
 
+    //bullet section
     public GameObject bullet;
     public Transform firingPosition;
 
     public GameObject bulletHole, muzzleFlash, waterLeak;
 
     private GameObject newbulletHole;
+
+
+    //jumping section
+    public float jumpHeight = 20f;
+    private bool readyToJump;
+    public Transform ground;
+    public LayerMask groundLayer;
+    public float groundDistance = 0.5f;
 
     // Start is called before the first frame update
     void Start()
@@ -36,7 +49,21 @@ public class Player : MonoBehaviour
         Movement();
         CameraMovement();
         Shoot();
+        Jump();
         
+    }
+
+    void Jump()
+    {
+
+        readyToJump = Physics.OverlapSphere(ground.position, groundDistance, groundLayer).Length > 0;
+        //Debug.Log(readyToJump);
+        if (Input.GetButtonDown("Jump") && readyToJump)
+        {
+            velocity.y = Mathf.Sqrt(jumpHeight * -2f * Physics.gravity.y) * Time.deltaTime;
+        }
+
+        myController.Move(velocity);
     }
 
     private void Shoot()
@@ -130,6 +157,8 @@ public class Player : MonoBehaviour
         //Rotate the camera up and down independent of the body 
         myCameraHead.localRotation = Quaternion.Euler(cameraVerticalRotation, 0f, 0f);
     }
+
+    
 
     
 }
