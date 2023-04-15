@@ -6,6 +6,11 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public float speed = 23.75f;
+
+    //Adding Gravity
+    public float gravityModifier;
+    public Vector3 velocity;
+    
     public CharacterController myController;
     public Transform myCameraHead;
 
@@ -17,7 +22,7 @@ public class Player : MonoBehaviour
 
     public GameObject bulletHole, muzzleFlash, waterLeak;
 
-    private GameObject newbulletHole;  
+    private GameObject newbulletHole;
 
     // Start is called before the first frame update
     void Start()
@@ -96,6 +101,17 @@ public class Player : MonoBehaviour
 
         //Make the player move and multiply by Speed and deltaTime to make it smooth across systems
         myController.Move(move * speed * Time.deltaTime);
+
+        //Adding Gravity
+        velocity.y += Physics.gravity.y * Mathf.Pow(Time.deltaTime, 2) * gravityModifier;
+
+        if(myController.isGrounded)
+        {
+            velocity.y = Physics.gravity.y * Time.deltaTime;
+        }
+        
+         
+        myController.Move(velocity);
     }
 
     void CameraMovement()
