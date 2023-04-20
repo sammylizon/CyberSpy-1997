@@ -37,10 +37,21 @@ public class Player : MonoBehaviour
     public LayerMask groundLayer;
     public float groundDistance = 0.5f;
 
+    //Crouching
+    private Vector3 crouchScale = new Vector3(1, 0.8f, 1);
+    private Vector3 bodyScale;
+    public Transform myBody;
+    private float initialControllerHeight;
+    public float crouchSpeed = 6f;
+    private bool isCrouching = false;
+        
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        bodyScale = myBody.localScale;
+        initialControllerHeight = myController.height;
+
     }
 
     // Update is called once per frame
@@ -50,7 +61,38 @@ public class Player : MonoBehaviour
         CameraMovement();
         Shoot();
         Jump();
+        Crouching();
         
+    }
+    void Crouching()
+    {
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            StartCrouching();
+        }
+
+        if (Input.GetKeyUp(KeyCode.C))
+        {
+            StopCrouching();
+        }
+
+
+    }
+
+    private void StartCrouching()
+    {
+        myBody.localScale = crouchScale;
+        myCameraHead.position -= new Vector3(0, 0.5f, 0);
+        myController.height /= 2;
+        isCrouching = true;
+    }
+
+    private void StopCrouching()
+    {
+        myBody.localScale = bodyScale;
+        myCameraHead.position += new Vector3(0, 0.5f, 0);
+        myController.height = initialControllerHeight;
+        isCrouching = false;
     }
 
     void Jump()
@@ -126,8 +168,17 @@ public class Player : MonoBehaviour
         //Create variable 'move' of Vector3 type and store the movement code 
         Vector3 move = transform.forward * y + transform.right * x;
 
-        //Make the player move and multiply by Speed and deltaTime to make it smooth across systems
-        myController.Move(move * speed * Time.deltaTime);
+        
+
+        if (isCrouching)
+        {
+            //Make player move with crouch speed if they are crouching
+            myController.Move(move * crouchSpeed * Time.deltaTime);
+        } else
+        {
+            //Make the player move and multiply by Speed and deltaTime to make it smooth across systems
+            myController.Move(move * speed * Time.deltaTime);
+        }
 
         //Adding Gravity
         velocity.y += Physics.gravity.y * Mathf.Pow(Time.deltaTime, 2) * gravityModifier;
