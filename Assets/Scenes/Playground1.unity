@@ -2258,7 +2258,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1342024800}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -1.609, z: 0}
+  m_LocalPosition: {x: 0, y: -1.52, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2660,7 +2660,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 25
-  gravityModifier: 4
+  gravityModifier: 8.53
   velocity: {x: 0, y: 0, z: 0}
   myController: {fileID: 1731492382}
   myCameraHead: {fileID: 783927665}
@@ -2669,12 +2669,12 @@ MonoBehaviour:
   bulletHole: {fileID: 3511488396759868629, guid: de14cda38377e4564a6112fb20be6a17, type: 3}
   muzzleFlash: {fileID: 1743301284569550, guid: 60834fa8f9c7e45d0b527a60af6b80ed, type: 3}
   waterLeak: {fileID: 1000010675638318, guid: 5a851c9f98c0f4cc28a344bcf26c9ab1, type: 3}
-  jumpHeight: 5
+  jumpHeight: 10
   ground: {fileID: 1342024801}
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
-  groundDistance: 0.5
+  groundDistance: 0.28
   myBody: {fileID: 794442719}
   crouchSpeed: 6
 --- !u!143 &1731492382

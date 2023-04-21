@@ -31,11 +31,11 @@ public class Player : MonoBehaviour
 
 
     //jumping section
-    public float jumpHeight = 20f;
+    public float jumpHeight = 2f;
     private bool readyToJump;
     public Transform ground;
     public LayerMask groundLayer;
-    public float groundDistance = 0.5f;
+    public float groundDistance = 0.2f;
 
     //Crouching
     private Vector3 crouchScale = new Vector3(1, 0.8f, 1);
@@ -64,6 +64,8 @@ public class Player : MonoBehaviour
         Crouching();
         
     }
+
+    //CUSTOM METHODS BELOW 
     void Crouching()
     {
         if (Input.GetKeyDown(KeyCode.C))
@@ -102,7 +104,7 @@ public class Player : MonoBehaviour
         //Debug.Log(readyToJump);
         if (Input.GetButtonDown("Jump") && readyToJump)
         {
-            velocity.y = Mathf.Sqrt(jumpHeight * -2f * Physics.gravity.y) * Time.deltaTime;
+            velocity.y = Mathf.Sqrt(jumpHeight * -2f * Physics.gravity.y) * Time.fixedDeltaTime;
         }
 
         myController.Move(velocity);
@@ -163,22 +165,24 @@ public class Player : MonoBehaviour
     {
         //Get input for x and y axis 
         float x = Input.GetAxis("Horizontal");
-        float y = Input.GetAxis("Vertical");
+        float z = Input.GetAxis("Vertical");
 
         //Create variable 'move' of Vector3 type and store the movement code 
-        Vector3 move = transform.forward * y + transform.right * x;
-
+        Vector3 movement = x * transform.right + z * transform.forward;
+        
         
 
         if (isCrouching)
         {
             //Make player move with crouch speed if they are crouching
-            myController.Move(move * crouchSpeed * Time.deltaTime);
+            movement = movement * crouchSpeed * Time.deltaTime;
         } else
         {
             //Make the player move and multiply by Speed and deltaTime to make it smooth across systems
-            myController.Move(move * speed * Time.deltaTime);
+            movement = movement * speed * Time.deltaTime;
         }
+
+        myController.Move(movement);
 
         //Adding Gravity
         velocity.y += Physics.gravity.y * Mathf.Pow(Time.deltaTime, 2) * gravityModifier;
@@ -187,9 +191,9 @@ public class Player : MonoBehaviour
         {
             velocity.y = Physics.gravity.y * Time.deltaTime;
         }
-        
-         
+
         myController.Move(velocity);
+
     }
 
     void CameraMovement()
