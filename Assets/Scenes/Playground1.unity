@@ -2669,7 +2669,7 @@ MonoBehaviour:
   bulletHole: {fileID: 3511488396759868629, guid: de14cda38377e4564a6112fb20be6a17, type: 3}
   muzzleFlash: {fileID: 1743301284569550, guid: 60834fa8f9c7e45d0b527a60af6b80ed, type: 3}
   waterLeak: {fileID: 1000010675638318, guid: 5a851c9f98c0f4cc28a344bcf26c9ab1, type: 3}
-  jumpHeight: 10
+  jumpHeight: 0.31
   ground: {fileID: 1342024801}
   groundLayer:
     serializedVersion: 2
