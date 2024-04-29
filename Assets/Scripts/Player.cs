@@ -31,7 +31,7 @@ public class Player : MonoBehaviour
 
 
     //jumping section
-    public float jumpHeight = 2f;
+    public float jumpHeight;
     private bool readyToJump;
     public Transform ground;
     public LayerMask groundLayer;
@@ -213,7 +213,7 @@ public class Player : MonoBehaviour
         myCameraHead.localRotation = Quaternion.Euler(cameraVerticalRotation, 0f, 0f);
     }
 
-    
 
-    
+
+
 }
