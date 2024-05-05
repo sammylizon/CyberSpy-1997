@@ -42,7 +42,7 @@ public class Player : MonoBehaviour
     private Vector3 bodyScale;
     public Transform myBody;
     private float initialControllerHeight;
-    public float crouchSpeed = 6f;
+    public float crouchSpeed = 12f;
     private bool isCrouching = false;
         
 
@@ -51,6 +51,9 @@ public class Player : MonoBehaviour
     {
         bodyScale = myBody.localScale;
         initialControllerHeight = myController.height;
+        //I want to see what gravity is doing 
+        
+        
 
     }
 
@@ -62,7 +65,9 @@ public class Player : MonoBehaviour
         Shoot();
         Jump();
         Crouching();
+      
         
+
     }
 
     //CUSTOM METHODS BELOW 
@@ -80,6 +85,7 @@ public class Player : MonoBehaviour
 
 
     }
+  
 
     private void StartCrouching()
     {
